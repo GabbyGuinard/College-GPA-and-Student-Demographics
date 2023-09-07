@@ -1,19 +1,22 @@
 ![ReadME_header](https://github.com/GabbyGuinard/College-GPA-and-Student-Demographics/assets/129466367/2465b88a-8601-4da7-8928-e88facfcd733)
 ---
 
-
 ## Objective
 The goal here is to determine if a student's demographic profile (race, age, socioeconomic status, etc) tends to influence their academic performance. 
 
 
 
 ---
+
+
 ## About the Dataset
 The analysis is based on a dataset provided by the buisness intelligence department at Metropolitan State University of Denver. All students and professors in the dataset have been anonymized.
 
 The data sets contains various demographic information for thousands of MSU Denver students as well as academic performance indicators, such as term GPA and whether that student has dropped out before their graduation. I used their GPA as the main indicator of academic success through out this analysis.
 
 ---
+
+
 ## Repository Directories
 #### 01_initialData
 Contains the initial csv that was provided before it has been cleaned.
@@ -30,10 +33,10 @@ Contains the cleaned data set in csv format
 #### 05_visualization
 Contains a markdown file with a snapshot of tableau public dashboard as well as a link to the interactive dashboard.
 
-
-
 ---
-## Steps of Analysis
+
+
+## Analysis Steps
 
 ![pipeline_grades](https://github.com/GabbyGuinard/College-GPA-and-Student-Demographics/assets/129466367/fb9604a1-4932-4d16-86d4-7a691e533323)
 
@@ -54,6 +57,7 @@ Data obtained directly from MSU Denver Business Intelligence
 #### Step 5: Data Visualization
   1. Used Tableau to create a dashboard containing the most important trends among GPA for seperate student demographics.
 
+---
 
 
 ## Results
