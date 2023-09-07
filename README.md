@@ -20,7 +20,7 @@ The goal here is to identify any trends among a student's demographic profile (r
 ## About the Dataset
 The analysis is based on a dataset provided by the buisness intelligence department at Metropolitan State University of Denver. All students and professors in the dataset have been anonymized.
 
-The data sets contains various demographic information for thousands of MSU Denver students as well as academic performance indicators, such as term GPA and whether that student has dropped out before their graduation. I used their GPA as the main indicator of academic success through out this analysis.
+The data sets contains various demographic information for thousands of MSU Denver students as well as some academic performance indicators, such as term GPA and whether that student has dropped out before their graduation date. I used their GPA as the main indicator of academic performance through out the analysis.
 
 ---
 
@@ -29,13 +29,13 @@ The data sets contains various demographic information for thousands of MSU Denv
 #### Initial_Data
 - Contains the initial csv that was provided before it has been cleaned.
 #### Data_Cleaning
-- An R markdown file that contains the code used for data cleaning code that is commented to show my thought process throughout the data cleaning process
+- An R markdown file that contains the code used for data cleaning.
 #### Data_Analysis
-- An R markdown file that contains the code used for data cleaning code that is commented to show my thought process throughout the data analysis process
+- An R markdown file that contains the code used for data analysis.
 #### Final_Data
-- Contains the cleaned data set in csv format
+- Contains the cleaned data set in csv format.
 #### Data_Visualization.md
-- A markdown file with a snapshot of tableau public dashboard as well as a link to the interactive dashboard.
+- A markdown file with a snapshot of my tableau public dashboard as well as a link to the interactive dashboard.
 
 ---
 
@@ -45,18 +45,18 @@ The data sets contains various demographic information for thousands of MSU Denv
 ![pipeline_grades][workflow_graphic]
 
 #### Step 1: Identify Goal/ Question
-- Question: Does a student's demographic profile influence their academic profile?
+- Question: Are there any trends among a student's demographic profile (race, age, socioeconomic status, etc) and their academic performance?
 #### Step 2: Gather Data
-- Data obtained directly from MSU Denver Business Intelligence
+- Data obtained directly from MSU Denver Business Intelligence.
 #### Step 3: Data Cleaning
-- Change data types. Many variables that should have been numerical (such as GPA, age, etc) were actually in char format. My first stepp was to transform these into numerical sata types. I also changed char data types into factors, as this mad it easy to count each input in the categorical variables (how many Males vs. Females).
-- Imputation: A significant hurdle to the analysis of this dataset was missing data. I proceeded to Impute missing data with the following steps:
-  - Convert certain values to 'NA' (how R recognized a value is missing). Certain values were technically missing, but was input as 'Unkown' or 'unk'. This is a problem because R                would recognize this as another level of the factor variables rather than an empty value. This would prevent my imputation function from replacing them with real values.
-  - Extract all varibles that contain missing data and calculate what percent of these columns are missing. Two columns ('total_hrs_earned' and 'act_score') were not imputed as it               contained too many missing values (>50%) and was not used in any analysis.
+- Change data types: Many variables that should have been numerical (such as GPA, age, etc) were actually in character format. My first step was to transform these into numerical data types. I also changed some character data types into factors, as this made it easy to count how many times a specific value exists in a variable (how many male vs. female students).
+- Imputation: A significant obstacle to the analysis of this dataset was missing data. I proceeded to impute missing data in the following steps:
+  - Convert certain values to 'NA' (how R recognized a value is missing). Certain values were technically missing, but was input as 'Unkown' or 'unk'. This is a problem because R                would recognize this as an existing value rather than an empty value. This would prevent my imputation function from replacing them with real values.
+  - Extract all columns that contain missing data and calculate what percent of these columns are missing. Two columns ('total_hrs_earned' and 'act_score') were not imputed as it               contained too many missing values (>50%) and was not used in any analysis.
   - used mice() function in R to impute data
-- Recode Some Variables: Some variables were recoded to prepare for analysis. For example, I used the term_GPA to classify a students grade as 'Good', 'Fair', and 'Poor' in a new variable calles 'Grades.' I also converted many two level categorical variables in binary to prepare for regression model.
+- Recode Some Variables: Some variables were recoded to prepare for analysis. For example, I used the term_GPA to classify the students' grades as 'Good', 'Fair', or 'Poor' in a new variable calles 'Grades.' I also converted many two level categorical variables into binary to prepare for regression model.
 #### Step 4: Data Analysis
-- Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify trends in predictor variable (demographic info) and the        strength of their influence on GPA
+- Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify trends in the predictor variable (demographic info) and the        strength of their influence on GPA.
 #### Step 5: Data Visualization
 - Used Tableau to create a dashboard containing the most important trends among GPA for seperate student demographics.
 
@@ -67,7 +67,7 @@ The data sets contains various demographic information for thousands of MSU Denv
 - Race seems to be the most influential predictor of GPA out of all other demographic subgroups
 - Black students are the most impacted by their race in terms of GPA
 - Other important factors include Age, Sex, First-Gen Status (first-gen = first in family to attend college), and whether the student is a transfer or first-time-freshman.
-- While there seems to be some significant trends amongs certain demographic information and GPA, a student's demographic profile seems to only account for 6% of all factors effecting GPA.
+- While there seems to be some significant trends among certain demographic information and GPA, a student's demographic profile seems to only account for 6% of all factors effecting GPA.
 
   [![dashboard image][dashboard_image]][dashboard_link]
 
