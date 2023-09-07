@@ -1,9 +1,3 @@
----
-title: "Data Manipulation"
-output: pdf_document
-date: "2023-08-30"
----
-
 
 Libraries Used
 ```{r}
@@ -23,7 +17,7 @@ data <- read.csv('/Users/gabby/Documents/Class Archive/Spring 2023/Senior Projec
 ```
 
 
-Changing Datatypes
+## Changing Datatypes
 -----------------------
 
 converting certain variables from char to numeric
@@ -62,7 +56,7 @@ summary(data$dependency_status)
 summary(data$has_children)
 ```
 
-# CONVERTING 'unk' factors to NA to prepare for imputation
+CONVERTING 'unk' factors to NA to prepare for imputation
 ```{r}
 data <- set_na(data, na = c(first_gen_status = 'Unknown',
                sex = 'N',
@@ -116,12 +110,15 @@ removing columns with >53 levels as required by mice() (impute function)
 #ximp <- cbind(ximp, data$zip_code)
 #colnames(ximp) <- c(colnames(ximp)[-29], 'zip_code')
 #ximp <- na.omit(ximp)
+```
+
+
+The imputation process takes about 15 minutes to compute, so I exportes the 
+imputed data set so that I dont have to re-impute everytime I worked in this
+project
+```{r}
 #write.csv(ximp,'ximp.csv', row.names = FALSE)
 ```
-The imputation process took about 15 minutes to compute, so I saved the 
-imputed data so that I dont have to re-impute everytime I worked in this
-project
-
 
 importing imputed daaset
 ```{r}
