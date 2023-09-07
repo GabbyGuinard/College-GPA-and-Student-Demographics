@@ -1,0 +1,260 @@
+---
+title: "Data Manipulation"
+output: pdf_document
+date: "2023-08-30"
+---
+
+
+Libraries Used
+```{r}
+library(zipcodeR)
+library(mice)
+library(tidyverse)
+```
+
+
+Import CSV Dataset
+```{r}
+data <- read.csv('/Users/gabby/Documents/Class Archive/Spring 2023/Senior Project/Senior_Stats_data.csv',
+                 header = TRUE,
+                 na.strings = "", ",")
+
+
+```
+
+
+Changing Datatypes
+-----------------------
+
+converting certain variables from char to numeric
+```{r}
+data$efc <- as.numeric(data$efc)
+data$term_gpa <- as.numeric(data$term_gpa)
+data$act_score <- as.numeric(data$act_score)
+data$total_hrs_earned <- as.numeric(data$total_hrs_earned)
+data$transfer_gpa <- as.numeric(data$transfer_gpa)
+data$hs_gpa <- as.numeric(data$hs_gpa)
+```
+
+Converting all characters to factors
+This allows for easier access to contents in each variable. This is especially
+important because this data set has so many observations.
+```{r}
+data[sapply(data, is.character)] <- lapply(data[sapply(data, is.character)], 
+                                       as.factor)
+```
+
+
+## Imputation
+--------------------------------------------------------------------------
+
+Dealing with NA/ missing/ 'UNKOWN' values
+These are values that are technically missing, but not inputed as NA, which
+is how R recognized a value is missing. The value may be 'Unknown' instead of NA
+for example. This is a problem because the imputation function that I will 
+employ only imputes NA values.
+
+variables w/missing values that are not inputed as NA
+```{r} 
+summary(data$first_gen_status)
+summary(data$sex)
+summary(data$dependency_status)
+summary(data$has_children)
+```
+
+# CONVERTING 'unk' factors to NA to prepare for imputation
+```{r}
+data <- set_na(data, na = c(first_gen_status = 'Unknown',
+               sex = 'N',
+               dependency_status = 'unk',
+               has_children = 'unk'))
+  
+```
+
+
+
+Creates a new dataframe 'missing' that shows all of the columns that contain
+NA values
+```{r}
+
+a <- c()
+for(i in 1:length(colnames(data))) {
+  b <- any(is.na(data[,i]) == TRUE)
+  a <- c(a, b)
+}
+missing <- data[,a]
+```
+Columns with missing data: first_gen_status, sex, City,  Zip_code, 
+dependency_status, efc, has_children, hs_gpa, transfer_gpa, term_gpa
+total_hr_earned, act_score
+
+
+
+Calculates proportion of NA values for each column. This step is important
+as the percentages are used to determine which columns contain too many NA
+values and should thus not be imputed and not be used in any data analysis
+```{r}
+percNA <- c()
+for(i in 1:ncol(missing)) {
+TF <- (is.na(missing[,i]))
+percNA <- c(percNA, length(TF[TF == TRUE])/length(TF))
+}
+names(percNA) <- colnames(missing)
+percNA
+```
+columns with high percentage of NA values(above 50%): total_hrs_earned, and act_score
+colomns to impute: first_gen_status (6), sex (7), dependency_status (17), efc(20), has_children(21)
+
+
+
+removing columns with >53 levels as required by mice() (impute function)
+```{r}
+#mice.data <- select(data, -'city', -'zip_code', -'major_code', -'major_desc')
+#data.imp <- mice(mice.data, method = 'rf')
+#ximp <- complete(data.imp)
+#any(is.na(ximp) == TRUE)
+#ximp <- cbind(ximp, data$zip_code)
+#colnames(ximp) <- c(colnames(ximp)[-29], 'zip_code')
+#ximp <- na.omit(ximp)
+#write.csv(ximp,'ximp.csv', row.names = FALSE)
+```
+The imputation process took about 15 minutes to compute, so I saved the 
+imputed data so that I dont have to re-impute everytime I worked in this
+project
+
+
+importing imputed daaset
+```{r}
+ximp <- read.csv('/Users/gabby/Documents/Class Archive/Spring 2023/Senior Project/ximp.csv',
+                 header = TRUE)
+```
+
+
+## Recoding
+# ------------------------------------------------------------------------------
+
+
+# Creating 'distance'' variable: calculates how far they live from campus
+
+removing rows with invalid zip codes
+```{r}
+ximp <- ximp[is_zcta(ximp$zip_code) == TRUE,]
+```
+# calclulating distance from campus (campus zip = 80204)
+```{r}
+campzip <- rep(80204, nrow(ximp))
+campdist <- zip_distance(ximp$zip_code, campzip)
+ximp <- mutate(ximp, distance = campdist$distance)
+```
+
+
+# Converting Student type to Binary for regression
+```{r}
+ximp <- mutate(ximp,
+               studenttype2 =
+                 case_when(student_type == 'First-Time Freshmen' ~ 0,
+                           student_type == 'Transfer Students' ~ 1
+                           ))
+#nrow(data[data$recode_student_type == 1,])/nrow(data)
+# 54.99% transfer
+```
+
+
+# Converting Retention status to Binary for regression
+```{r}
+ximp <- mutate(ximp,
+               retention2 =
+                 case_when(retention_status == 'Not Retained' ~ 0,
+                           retention_status == 'Retained' ~ 1))
+#nrow(data[data$recode_retention == 1,])/nrow(data)
+# 63.83 retention rate
+```
+
+
+# Converting Race to Binary for regression
+```{r}
+ximp <- mutate(.data = ximp,
+               American_Indian_or_Alaskan_Native = ifelse(race_ethnicity == 
+                                    'American Indian or Alaskan Native', 1, 0),
+               Asian = ifelse(race_ethnicity == 'Asian' ,1, 0),
+               Black_African_American = ifelse(race_ethnicity == 'Black or African American', 1, 0),
+               Hispanic_Latino = ifelse(race_ethnicity == 'Hispanic or Latino', 1, 0),
+               International = ifelse(race_ethnicity == 'International Students' , 1, 0),
+               Native_Hawaiian_Pacific_Islander = ifelse(race_ethnicity == 'Native Hawaiian or Pacific Islander' , 1, 0),
+               Two_or_More = ifelse(race_ethnicity == "Two or More Races" , 1, 0),
+               White = ifelse(race_ethnicity == 'White', 1, 0))
+ximp <- ximp[ximp$race_ethnicity != 'Other',]
+ 
+```
+
+# Converting first gen status to Binary for regression
+```{r}
+ximp <- mutate(ximp,
+                firstgen2 = case_when(first_gen_status == 'First-Gen' ~ 1,
+                 first_gen_status == 'Not First-Gen' ~ 0))
+
+```
+
+
+# Converting Sex to Binary for regression
+```{r}
+
+ximp <- mutate(ximp,
+               sex2 = case_when(sex == 'F' ~ 1,
+                                           sex == 'M' ~ 0))
+```
+
+
+# Converting Full / Part Time to Binary for regression
+```{r}
+ximp <- mutate(ximp,
+               timestatus2 = case_when(time_status == 'Full-Time' ~ 1,
+                                             time_status == 'Part-Time' ~ 0))
+```
+
+# Converting Dependency status to Binary for regression
+```{r}
+ximp <- mutate(ximp,
+               depstatus2 = case_when(dependency_status == 'ind' ~ 0,
+                                            dependency_status == 'dep' ~ 1))
+```
+
+
+# Converting Pell Eligable to Binary for regression
+```{r}
+ximp <- mutate(ximp,
+               pell2= case_when(pell_eligible == 'Pell Eligible' ~ 1,
+                                            pell_eligible == 'Not Pell Eligible' ~ 0))
+```
+
+
+# ConvertingOnline/ Hybrid/ In person to Binary for regression
+```{r}
+ximp <- mutate(ximp,
+               inperson = ifelse(ximp$count_ftf > 0 | ximp$count_hyb > 0 , 1, 0)) 
+```
+
+
+# Converting has children to Binary for regression
+```{r}
+ximp <- mutate(ximp,
+               child2 = ifelse(has_children == 'Y', 1, 0))
+```
+
+
+# Classification grade status based on GPA
+```{r}
+ximp <- mutate(ximp, grades = case_when(term_gpa < 2 ~ 'Poor',
+                                       term_gpa >= 2 & term_gpa < 3 ~ 'Fair',
+                                       term_gpa >= 3 ~ 'Good'))
+
+```
+
+
+
+
+
+#write.csv(ximp, 'grades_recoded.csv', row.names = F)
+
+```
+
