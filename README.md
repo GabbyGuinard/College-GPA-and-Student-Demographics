@@ -18,7 +18,7 @@ The data sets contains various demographic information for thousands of MSU Denv
 
 
 ## Repository Directories
-#### Initial
+#### Initial_Data
 - Contains the initial csv that was provided before it has been cleaned.
 #### Data_Cleaning
 - An R markdown file that contains the code used for data cleaning code that is commented to show my thought process throughout the data cleaning process
