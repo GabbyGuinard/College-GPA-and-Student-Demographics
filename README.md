@@ -2,7 +2,7 @@
 ---
 
 ## Objective
-The goal here is to determine if a student's demographic profile (race, age, socioeconomic status, etc) tends to influence their academic performance. 
+The goal here is to determine any trends among a student's demographic profile (race, age, socioeconomic status, etc) and their academic performance. 
 
 
 
@@ -18,20 +18,16 @@ The data sets contains various demographic information for thousands of MSU Denv
 
 
 ## Repository Directories
-#### 01_initialData
-Contains the initial csv that was provided before it has been cleaned.
-#### 02_dataCleaning
-Contains 2 files:
-1. A raw R file that contains the code used for data cleaning with light commentary
-2. A markdown file that contains snippets of the above R code as well as extensive commentary to show my thought process throughout the data cleaning process
-#### 03_Analysis
-Contains 2 files:
-1. A raw R file that contains the code used for data analysis with light commentary
-2. A markdown file that contains snippets of the above R code as well as extensive commentary to show my thought process throughout the data analysis process
-#### 04_finalData
+#### Initial
+- Contains the initial csv that was provided before it has been cleaned.
+#### Data_Cleaning
+- An R markdown file that contains the code used for data cleaning code that is commented to show my thought process throughout the data cleaning process
+#### Data_Analysis
+- An R markdown file that contains the code used for data cleaning code that is commented to show my thought process throughout the data analysis process
+#### Final_Data
 Contains the cleaned data set in csv format
-#### 05_visualization
-Contains a markdown file with a snapshot of tableau public dashboard as well as a link to the interactive dashboard.
+#### Data_Visualization.md
+- A markdown file with a snapshot of tableau public dashboard as well as a link to the interactive dashboard.
 
 ---
 
@@ -52,8 +48,7 @@ Data obtained directly from MSU Denver Business Intelligence
        - used mice() function in R to impute data
 3. Recode Some Variables: Some variables were recoded to prepare for analysis. For example, I used the term_GPA to classify a students grade as 'Good', 'Fair', and 'Poor' in a new variable calles 'Grades.' I also converted many two level categorical variables in binary to prepare for regression model.
 #### Step 4: Data Analysis
-  1. Use cleaned dataset to create new table containing various statistics to identify trends.
-  2. Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify the most important predictors for GPA.
+1.  Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify the most important predictors for GPA as well as           their trands.
 #### Step 5: Data Visualization
   1. Used Tableau to create a dashboard containing the most important trends among GPA for seperate student demographics.
 
