@@ -33,7 +33,7 @@ The data sets contains various demographic information for thousands of MSU Denv
 #### Data_Analysis
 - An R markdown file that contains the code used for data cleaning code that is commented to show my thought process throughout the data analysis process
 #### Final_Data
-Contains the cleaned data set in csv format
+- Contains the cleaned data set in csv format
 #### Data_Visualization.md
 - A markdown file with a snapshot of tableau public dashboard as well as a link to the interactive dashboard.
 
