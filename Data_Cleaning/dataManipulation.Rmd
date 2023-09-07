@@ -40,6 +40,7 @@ Changing Datatypes
 ```{r}
 
 # converting certain variables to numeric
+
 data$efc <- as.numeric(data$efc)
 data$term_gpa <- as.numeric(data$term_gpa)
 data$act_score <- as.numeric(data$act_score)
@@ -49,20 +50,23 @@ data$hs_gpa <- as.numeric(data$hs_gpa)
 
 
 # Converting all characters to factors
+
 data[sapply(data, is.character)] <- lapply(data[sapply(data, is.character)], 
                                        as.factor)
 ```
 
 
-# Dealing with NA/ missing/ 'UNKOWN' values
+Dealing with NA/ missing/ 'UNKOWN' values
 ```{r} 
 # 2 level categorical variables w/missing values
+
 summary(data$first_gen_status)
 summary(data$sex)
 summary(data$dependency_status)
 summary(data$has_children)
 
 # CONVERTING 'unk' factors to NA to prepare for imputation
+
 data <- set_na(data, na = c(first_gen_status = 'Unknown',
                sex = 'N',
                dependency_status = 'unk',
@@ -74,14 +78,15 @@ data <- set_na(data, na = c(first_gen_status = 'Unknown',
 #--------------------------------------------------------------------------------------
 ```{r}
 
-# Creates a new dataframe 'missing' that shows all of the columns that contain
-# NA values
+# Creates a new dataframe 'missing' that shows all of the columns that contain NA values
+
 a <- c()
 for(i in 1:length(colnames(data))) {
   b <- any(is.na(data[,i]) == TRUE)
   a <- c(a, b)
 }
 missing <- data[,a]
+
 # Columns with missing data: first_gen_status, sex, City,  Zip_code, 
 # dependency_status, efc, has_children, hs_gpa, transfer_gpa, term_gpa
 # total_hr_earned, act_score
@@ -91,6 +96,7 @@ missing <- data[,a]
 # Calculates proportion of NA values for each column. This step is important
 # as the percentages are used to determine which columns contain too many NA
 # values and should thus not be imputed and used in any data analysis
+
 percNA <- c()
 for(i in 1:ncol(missing)) {
 TF <- (is.na(missing[,i]))
@@ -113,7 +119,7 @@ percNA
 #ximp <- na.omit(ximp)
 #write.csv(ximp,'ximp.csv', row.names = FALSE)
 
-# The imputation process took about 15 minutes to compute, so I saved the 
+# The imputation process took about 15 minutes to compute, so I exported the 
 # imputed data so that I dont have to re-impute everytime I worked in this
 # project
 
@@ -124,15 +130,17 @@ ximp <- read.csv('/Users/gabby/Documents/Class Archive/Spring 2023/Senior Projec
 ```
 
 
-## Recoding
+Recoding
 ```{r}
 
 # RECODING
 #-------------------------------------------------------------------------------
 # removing rows with invalid zip codes
+
 ximp <- ximp[is_zcta(ximp$zip_code) == TRUE,]
 
 # calclulating distance from campus (campus zip = 80204)
+
 campzip <- rep(80204, nrow(ximp))
 campdist <- zip_distance(ximp$zip_code, campzip)
 ximp <- mutate(ximp, distance = campdist$distance)
@@ -144,8 +152,9 @@ ximp <- mutate(ximp,
                  case_when(student_type == 'First-Time Freshmen' ~ 0,
                            student_type == 'Transfer Students' ~ 1
                            ))
-#nrow(data[data$recode_student_type == 1,])/nrow(data)
-# 54.99% transfer
+
+nrow(data[data$recode_student_type == 1,])/nrow(data)
+# 54.99% transfer students
 
 # Retention status
 # ------------------------------------------------------------------------------
@@ -153,7 +162,8 @@ ximp <- mutate(ximp,
                retention2 =
                  case_when(retention_status == 'Not Retained' ~ 0,
                            retention_status == 'Retained' ~ 1))
-#nrow(data[data$recode_retention == 1,])/nrow(data)
+
+nrow(data[data$recode_retention == 1,])/nrow(data)
 # 63.83 retention rate
 
 # Race
@@ -177,12 +187,14 @@ sum(ximp$Native_Hawaiian_Pacific_Islander)
 ximp <- mutate(ximp,
                 firstgen2 = case_when(first_gen_status == 'First-Gen' ~ 1,
                                             first_gen_status == 'Not First-Gen' ~ 0))
+
 # Sex
 #------------------------------------------------------------------------------
 #summary(as.factor(data$sex))
 ximp <- mutate(ximp,
                sex2 = case_when(sex == 'F' ~ 1,
                                            sex == 'M' ~ 0))
+
 
 # Full / Part Time
 ##------------------------------------------------------------------------------
@@ -191,6 +203,7 @@ ximp <- mutate(ximp,
                timestatus2 = case_when(time_status == 'Full-Time' ~ 1,
                                              time_status == 'Part-Time' ~ 0))
 
+
 # Dependency status
 ###------------------------------------------------------------------------------
 #summary(as.factor(data$dependency_status))
@@ -198,9 +211,9 @@ ximp <- mutate(ximp,
                depstatus2 = case_when(dependency_status == 'ind' ~ 0,
                                             dependency_status == 'dep' ~ 1))
 
+
 # Pell Eligable
 #------------------------------------------------------------------------------
-#summary(as.factor(data$pell_eligible))
 ximp <- mutate(ximp,
                pell2= case_when(pell_eligible == 'Pell Eligible' ~ 1,
                                             pell_eligible == 'Not Pell Eligible' ~ 0))
@@ -212,11 +225,13 @@ ximp <- mutate(ximp,
                inperson = ifelse(ximp$count_ftf > 0 | ximp$count_hyb > 0 , 1, 0)) 
 
 ximp[,c('inperson', "count_ftf", 'count_hyb')]
+
 # grade status
 #------------------------------------------------------------------------------
 ximp <- mutate(ximp, grades = case_when(term_gpa < 2 ~ 'Poor',
                                        term_gpa >= 2 & term_gpa < 3 ~ 'Fair',
                                        term_gpa >= 3 ~ 'Good'))
+
 
 # has children
 #------------------------------------------------------------------------------
