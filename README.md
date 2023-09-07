@@ -66,7 +66,7 @@ Data obtained directly from MSU Denver Business Intelligence
 - Other important factors include Age, Sex, First-Gen Status (first-gen = first in family to attend college), and whether the student is a transfer or first-time-freshman.
 - While there seems to be some significant trends amongs certain demographic information and GPA, a student's demographic profile seems to only account for 6% of all factors effecting GPA.
 
-  ![grades_dashboard](https://github.com/GabbyGuinard/College-GPA-and-Student-Demographics/assets/129466367/85815501-b7ba-48a4-af6a-7d0c7a49d1b5)
+  ![grades_dashboard](https://github.com/GabbyGuinard/College-GPA-and-Student-Demographics/assets/129466367/85815501-b7ba-48a4-af6a-7d0c7a49d1b5)[https://public.tableau.com/app/profile/gabby.guinard/viz/StudentDemographicsandAcademicSuccess/Dashboard1]
 
 
 
