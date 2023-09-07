@@ -2,7 +2,7 @@
 ---
 
 ## Objective
-The goal here is to determine any trends among a student's demographic profile (race, age, socioeconomic status, etc) and their academic performance. 
+The goal here is to identify any trends among a student's demographic profile (race, age, socioeconomic status, etc) and their academic performance. 
 
 
 
