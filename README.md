@@ -56,7 +56,7 @@ The data sets contains various demographic information for thousands of MSU Denv
   - used mice() function in R to impute data
 - Recode Some Variables: Some variables were recoded to prepare for analysis. For example, I used the term_GPA to classify a students grade as 'Good', 'Fair', and 'Poor' in a new variable calles 'Grades.' I also converted many two level categorical variables in binary to prepare for regression model.
 #### Step 4: Data Analysis
-- Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify the most important predictors for GPA as well as           their trands.
+- Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify trends in predictor variable (demographic info) and the        strength of their influence on GPA
 #### Step 5: Data Visualization
 - Used Tableau to create a dashboard containing the most important trends among GPA for seperate student demographics.
 
