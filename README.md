@@ -1,4 +1,4 @@
-![ReadME_header](https://github.com/GabbyGuinard/College-GPA-and-Student-Demographics/assets/129466367/2465b88a-8601-4da7-8928-e88facfcd733)
+![ReadME_header][project_logo]
 ---
 
 ## Objective
@@ -38,7 +38,7 @@ Contains a markdown file with a snapshot of tableau public dashboard as well as 
 
 ## Analysis Steps
 
-![pipeline_grades](https://github.com/GabbyGuinard/College-GPA-and-Student-Demographics/assets/129466367/fb9604a1-4932-4d16-86d4-7a691e533323)
+![pipeline_grades][workflow_graphic]
 
 #### Step 1: Identify Goal/ Question
 Question: Does a student's demographic profile influence their academic profile?
@@ -66,7 +66,22 @@ Data obtained directly from MSU Denver Business Intelligence
 - Other important factors include Age, Sex, First-Gen Status (first-gen = first in family to attend college), and whether the student is a transfer or first-time-freshman.
 - While there seems to be some significant trends amongs certain demographic information and GPA, a student's demographic profile seems to only account for 6% of all factors effecting GPA.
 
-  ![grades_dashboard](https://github.com/GabbyGuinard/College-GPA-and-Student-Demographics/assets/129466367/85815501-b7ba-48a4-af6a-7d0c7a49d1b5)[https://public.tableau.com/app/profile/gabby.guinard/viz/StudentDemographicsandAcademicSuccess/Dashboard1]
+  ![dashboard image][dashboard_image][dashboard_link]
+
+
+
+
+
+  <!-- Image Links -->
+
+[project_logo]: Proj_images/ReadME_header.jpg
+[dashboard_image]: Proj_images/grades_dashboard.jpg
+[workflow_graphic]: Proj_images/pipeline_grades.jpg
+
+
+<!-- External Links -->
+[dashboard_link]: https://public.tableau.com/app/profile/gabby.guinard/viz/StudentDemographicsandAcademicSuccess/Dashboard1
+
 
 
 
