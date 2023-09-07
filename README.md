@@ -45,20 +45,20 @@ The data sets contains various demographic information for thousands of MSU Denv
 ![pipeline_grades][workflow_graphic]
 
 #### Step 1: Identify Goal/ Question
-1. Question: Does a student's demographic profile influence their academic profile?
+- Question: Does a student's demographic profile influence their academic profile?
 #### Step 2: Gather Data
-1. Data obtained directly from MSU Denver Business Intelligence
+- Data obtained directly from MSU Denver Business Intelligence
 #### Step 3: Data Cleaning
-  1. Change data types. Many variables that should have been numerical (such as GPA, age, etc) were actually in char format. My first stepp was to transform these into numerical sata types. I also changed char data types into factors, as this mad it easy to count each input in the categorical variables (how many Males vs. Females).
-  2. Imputation: A significant hurdle to the analysis of this dataset was missing data. I proceeded to Impute missing data with the following steps:
+- Change data types. Many variables that should have been numerical (such as GPA, age, etc) were actually in char format. My first stepp was to       transform these into numerical sata types. I also changed char data types into factors, as this mad it easy to count each input in the categorical variables (how many Males vs. Females).
+- Imputation: A significant hurdle to the analysis of this dataset was missing data. I proceeded to Impute missing data with the following steps:
        - Convert certain values to 'NA' (how R recognized a value is missing). Certain values were technically missing, but was input as 'Unkown' or 'unk'. This is a problem because R            would recognize this as another level of the factor variables rather than an empty value. This would prevent my imputation function from replacing them with real values.
        - Extract all varibles that contain missing data and calculate what percent of these columns are missing. Two columns ('total_hrs_earned' and 'act_score') were not imputed as it           contained too many missing values (>50%) and was not used in any analysis,
        - used mice() function in R to impute data
-3. Recode Some Variables: Some variables were recoded to prepare for analysis. For example, I used the term_GPA to classify a students grade as 'Good', 'Fair', and 'Poor' in a new variable calles 'Grades.' I also converted many two level categorical variables in binary to prepare for regression model.
+  -  Recode Some Variables: Some variables were recoded to prepare for analysis. For example, I used the term_GPA to classify a students grade as 'Good', 'Fair', and 'Poor' in a new variable calles 'Grades.' I also converted many two level categorical variables in binary to prepare for regression model.
 #### Step 4: Data Analysis
-1.  Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify the most important predictors for GPA as well as           their trands.
+-   Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify the most important predictors for GPA as well as           their trands.
 #### Step 5: Data Visualization
- 1. Used Tableau to create a dashboard containing the most important trends among GPA for seperate student demographics.
+ -  Used Tableau to create a dashboard containing the most important trends among GPA for seperate student demographics.
 
 ---
 
