@@ -1,6 +1,14 @@
 ![ReadME_header][project_logo]
 ---
 
+<p align="center">
+  <a href="#Objective">Objective</a> •
+  <a href="#About the Dataset">About the Dataset</a> •
+  <a href="#Repository Directories">Repository Directoriese</a> •
+  <a href="#Analysis Steps">Analysis Steps</a> •
+  <a href="#Results">Results</a> •
+</p>
+
 ## Objective
 The goal here is to identify any trends among a student's demographic profile (race, age, socioeconomic status, etc) and their academic performance. 
 
