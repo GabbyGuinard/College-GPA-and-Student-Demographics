@@ -249,9 +249,8 @@ ximp <- mutate(ximp, grades = case_when(term_gpa < 2 ~ 'Poor',
 
 
 
-
-
-#write.csv(ximp, 'grades_recoded.csv', row.names = F)
-
+Exporting new recoded data set
+```{r}
+write.csv(ximp, 'grades_recoded.csv', row.names = F)
 ```
 
