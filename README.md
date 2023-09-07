@@ -45,9 +45,9 @@ Contains the cleaned data set in csv format
 ![pipeline_grades][workflow_graphic]
 
 #### Step 1: Identify Goal/ Question
-Question: Does a student's demographic profile influence their academic profile?
+1. Question: Does a student's demographic profile influence their academic profile?
 #### Step 2: Gather Data
-Data obtained directly from MSU Denver Business Intelligence
+1. Data obtained directly from MSU Denver Business Intelligence
 #### Step 3: Data Cleaning
   1. Change data types. Many variables that should have been numerical (such as GPA, age, etc) were actually in char format. My first stepp was to transform these into numerical sata types. I also changed char data types into factors, as this mad it easy to count each input in the categorical variables (how many Males vs. Females).
   2. Imputation: A significant hurdle to the analysis of this dataset was missing data. I proceeded to Impute missing data with the following steps:
@@ -58,7 +58,7 @@ Data obtained directly from MSU Denver Business Intelligence
 #### Step 4: Data Analysis
 1.  Used backward stepwise procedure and VIF to create a regression model. The main purpose of the regression model is to identify the most important predictors for GPA as well as           their trands.
 #### Step 5: Data Visualization
-  1. Used Tableau to create a dashboard containing the most important trends among GPA for seperate student demographics.
+ 1. Used Tableau to create a dashboard containing the most important trends among GPA for seperate student demographics.
 
 ---
 
