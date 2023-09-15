@@ -77,7 +77,7 @@ The data sets contains various demographic information for thousands of MSU Denv
 
   <!-- Image Links -->
 
-[project_logo]: Proj_images/ReadME_header.jpg
+[project_logo]: Proj_images/header_img.jpg
 [dashboard_image]: Proj_images/grades_dashboard.jpg
 [workflow_graphic]: Proj_images/pipeline_grades.jpg
 
